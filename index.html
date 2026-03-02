@@ -24,6 +24,17 @@
     html {
       scroll-behavior: smooth;
     }
+
+    /* Cascade animation for cards */
+    .cascade-card {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .cascade-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -92,8 +103,74 @@
     </div>
   </section>
 
+  <!-- Why Have Your Own Website Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Why Have a Modern, Customized Website?</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Stop building your business on rented land. When clients Google you, what do they find?</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- Problem 1 -->
+        <div class="cascade-card bg-primary/10 rounded-xl p-8 border-2 border-primary" style="transition-delay: 0ms;">
+          <div class="w-14 h-14 bg-primary rounded-xl flex items-center justify-center mb-6">
+            <i class="fab fa-facebook text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Facebook Buries Your Profile</h3>
+          <p class="text-gray-600">Social media algorithms prioritize paid content. Your business profile is nearly invisible unless you're constantly paying to boost posts. That's not a foundation for your business.</p>
+        </div>
+
+        <!-- Problem 2 -->
+        <div class="cascade-card bg-white rounded-xl p-8 shadow-sm" style="transition-delay: 150ms;">
+          <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+            <i class="fas fa-building text-2xl text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Brokerage Profiles Aren't Yours</h3>
+          <p class="text-gray-600">Your brokerage profile showcases the company brand, not yours. When you move brokerages, your online presence starts over. You don't own it.</p>
+        </div>
+
+        <!-- Problem 3 -->
+        <div class="cascade-card bg-white rounded-xl p-8 shadow-sm" style="transition-delay: 300ms;">
+          <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+            <i class="fas fa-search text-2xl text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Clients Google You First</h3>
+          <p class="text-gray-600">Before they call, your potential clients search for you. If all they find is a basic Zillow profile or nothing at all, you've already lost credibility.</p>
+        </div>
+
+        <!-- Solution -->
+        <div class="cascade-card bg-primary/10 rounded-xl p-8 border-2 border-primary" style="transition-delay: 450ms;">
+          <div class="w-14 h-14 bg-primary rounded-xl flex items-center justify-center mb-6">
+            <i class="fas fa-globe text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Own Your Online Presence</h3>
+          <p class="text-gray-600">A website you own is <strong>your</strong> brand, <strong>your</strong> content, <strong>your</strong> leads. It's the professional home base that works for you 24/7, no matter what algorithm changes tomorrow.</p>
+        </div>
+      </div>
+
+      <!-- Benefits Summary -->
+      <div class="mt-16 text-center">
+        <div class="flex flex-col md:flex-row justify-center gap-8 md:gap-16">
+          <div class="flex items-center justify-center gap-3">
+            <i class="fas fa-handshake text-primary text-xl"></i>
+            <span class="text-lg text-gray-700 font-medium">Build trust before the first call</span>
+          </div>
+          <div class="flex items-center justify-center gap-3">
+            <i class="fas fa-lightbulb text-primary text-xl"></i>
+            <span class="text-lg text-gray-700 font-medium">Position yourself as a thought leader</span>
+          </div>
+          <div class="flex items-center justify-center gap-3">
+            <i class="fas fa-robot text-primary text-xl"></i>
+            <span class="text-lg text-gray-700 font-medium">Stay visible in the AI age</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Features Section -->
-  <section id="features" class="py-20 px-6 bg-gray-50">
+  <section id="features" class="py-20 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16">
         <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Why Choose REFresh?</h2>
@@ -464,6 +541,19 @@
       const nav = document.getElementById('mobile-nav');
       nav.classList.toggle('hidden');
     }
+
+    // Cascade animation on scroll
+    const cascadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.cascade-card').forEach(card => {
+      cascadeObserver.observe(card);
+    });
 
     // Google Apps Script URL
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz9g7BFlNMQnt3Jas-94ZiG0iHvaXAmyaDkr6GWJWlZT6O4Y6CnXjQebEAcF-hD2sv2/exec';
